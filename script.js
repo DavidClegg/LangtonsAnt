@@ -37,8 +37,8 @@ const dRT = (a) => a.x++; // Right
 const dLT = (a) => a.x--; // Left
 const directions = [dUP, dRT, dDN, dLT]; // Directions
 
-// The colour scheme I went with.
-const colours = ['rgb(176, 218, 79)','rgb(39, 75, 98)'];
+// The colour scheme I went with originally.
+const colours = ['rgb(176, 218, 79)',"#333"]//'rgb(39, 75, 98)'];
 ctx.fillStyle = colours[1];
 ctx.fillRect(0, 0, canvas.width, canvas.height); // Flood fill the background
 let m = 0; // Move number, used in testing to skip to m steps
@@ -56,14 +56,22 @@ function update()
                 // and change it to 1
                 ant.d = (ant.d + 1) % 4;
                 grid[ant.y][ant.x] = 1;
-                ctx.fillStyle = colours[0];
+                ctx.fillStyle = `hsl(${m/100000%360}, 70%, 50%)`;
+                //ctx.fillStyle = colours[0]; // default
+
+                //ctx.fillStyle = `hsl(${m/10000%180+180}, 100%, 50%)`;
+                // colour vomit, don't use
+
             } else if(block == 1)
             {
                 // if it is standing on 1 then rotate anticlockwise
                 // and change it to 0
                 ant.d = (ant.d + 3) % 4; // +3 is used instead of -1 because this will never cause an underflow if ant.d == 0
                 grid[ant.y][ant.x] = 0;
-                ctx.fillStyle = colours[1];
+                ctx.fillStyle = colours[1]; // default
+
+                //ctx.fillStyle = `hsl(${m/100000%180}, 100%, 50%)`
+                //colour vomit, don't use
             }
             // colour the current block
             ctx.fillRect(ant.x, ant.y, 1, 1);
